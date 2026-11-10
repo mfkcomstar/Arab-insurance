@@ -1,0 +1,64 @@
+﻿{
+    "url":  "https://odolution-com-arab-insurance-19-10-26-40105896.dev.odoo.com",
+    "checks":  [
+                   {
+                       "path":  "/web/login",
+                       "status":  200,
+                       "final_url":  "https://odolution-com-arab-insurance-19-10-26-40105896.dev.odoo.com/web/login",
+                       "bytes":  20639,
+                       "database_name_in_html":  true
+                   },
+                   {
+                       "path":  "/odoo",
+                       "status":  200,
+                       "final_url":  "https://odolution-com-arab-insurance-19-10-26-40105896.dev.odoo.com/web/login?redirect=%2Fodoo%3F",
+                       "bytes":  20674,
+                       "database_name_in_html":  true
+                   },
+                   {
+                       "path":  "/",
+                       "status":  200,
+                       "final_url":  "https://odolution-com-arab-insurance-19-10-26-40105896.dev.odoo.com/",
+                       "bytes":  13460,
+                       "database_name_in_html":  true
+                   }
+               ],
+    "database_query_exit":  0,
+    "database_results":  "BEGIN\nodolution-com-arab-insurance-19-10-26-40105896\ninstalled|148\nuninstallable|2\nuninstalled|1376\naib_accounting|installed\naib_base|installed\naib_broker_coordination|installed\naib_business_profile|installed\naib_claim|installed\naib_client_360_view|uninstalled\naib_collection|installed\naib_commission|installed\naib_commission_engine|installed\naib_comparison|installed\naib_contact_360|installed\naib_crm|installed\naib_dashboard|installed\naib_dashboard_pro|installed\naib_direct_policy|installed\naib_document_checklist|installed\naib_market|installed\naib_policy|installed\naib_policy_endorsement|installed\naib_policy_worksheet_export|installed\naib_quotation|installed\naib_regulatory_reporting|installed\naib_renewal|installed\naib_reports|installed\naib_ui_polish|uninstalled\naib_workflow_activity|installed\narab_insurance_crm_documents|installed\narab_insurance_website|installed\nbase_automation|installed\ncontact_relationship_status|installed\nhome_theme|uninstalled\nl10n_gcc_invoice|installed\nl10n_kw|installed\nmuk_web_appsbar|installed\nmuk_web_chatter|installed\nmuk_web_colors|installed\nmuk_web_dialog|installed\nmuk_web_group|installed\nmuk_web_refresh|installed\nmuk_web_theme|installed\nodoo_board_management|installed\nsd_transport_management|uninstalled\nPBNK1/2026/00001|in_process|199|300.000\nINV/2026/00001|600.000|300.000|posted\nCOMMIT\n",
+    "database_errors":  "",
+    "runtime_log_tail":  [
+                             "2026-11-10 17:23:17,758 635 INFO ? werkzeug: 10.0.198.80 - - [10/Nov/2026 17:23:17] \"POST /json/2/ir.cron/acquire_job HTTP/1.1\" 200 - 623 0.160 4.050",
+                             "2026-11-10 17:23:25,744 635 INFO odolution-com-arab-insurance-19-10-26-40105896 odoo.service.server: Initiating shutdown ",
+                             "2026-11-10 17:23:25,744 635 INFO odolution-com-arab-insurance-19-10-26-40105896 odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. ",
+                             "2026-11-10 17:23:26,158 635 INFO odolution-com-arab-insurance-19-10-26-40105896 odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=14): Closed 4 connections  ",
+                             "2026-11-10 17:24:10,796 652 INFO ? odoo: Odoo version 19.0 ",
+                             "2026-11-10 17:24:10,796 652 INFO ? odoo: Using configuration file at /home/odoo/.config/odoo/odoo.conf ",
+                             "2026-11-10 17:24:10,796 652 INFO ? odoo: addons paths: _NamespacePath([\u0027/home/odoo/src/odoo/odoo/addons\u0027, \u0027/home/odoo/src/odoo/odoo/addons\u0027, \u0027/home/odoo/data/addons/19.0\u0027, \u0027/home/odoo/src/odoo/addons\u0027, \u0027/home/odoo/src/enterprise\u0027, \u0027/home/odoo/src/themes\u0027, \u0027/home/odoo/src/user\u0027]) ",
+                             "2026-11-10 17:24:10,796 652 INFO ? odoo: database: p_odolution_com_arab_insurance_19_10_26_40105896@192.168.1.1:5432 ",
+                             "2026-11-10 17:24:10,814 652 INFO ? odoo: Could not determine if database odolution-com-arab-insurance-19-10-26-40105896 exists, skipping auto-creation: permission denied for table pg_database",
+                             " ",
+                             "2026-11-10 17:24:11,225 652 INFO ? odoo.service.server: Watching addons folder /home/odoo/src/odoo/odoo/addons ",
+                             "2026-11-10 17:24:11,225 652 INFO ? odoo.service.server: Watching addons folder /home/odoo/src/odoo/odoo/addons ",
+                             "2026-11-10 17:24:11,225 652 INFO ? odoo.service.server: Watching addons folder /home/odoo/data/addons/19.0 ",
+                             "2026-11-10 17:24:11,225 652 INFO ? odoo.service.server: Watching addons folder /home/odoo/src/odoo/addons ",
+                             "2026-11-10 17:24:11,225 652 INFO ? odoo.service.server: Watching addons folder /home/odoo/src/enterprise ",
+                             "2026-11-10 17:24:11,225 652 INFO ? odoo.service.server: Watching addons folder /home/odoo/src/themes ",
+                             "2026-11-10 17:24:11,225 652 INFO ? odoo.service.server: Watching addons folder /home/odoo/src/user ",
+                             "2026-11-10 17:24:12,000 652 INFO ? odoo.service.server: AutoReload watcher running with inotify ",
+                             "2026-11-10 17:24:12,001 652 INFO ? odoo.service.server: HTTP service (werkzeug) running through socket activation ",
+                             "2026-11-10 17:24:12,042 652 INFO odolution-com-arab-insurance-19-10-26-40105896 odoo.modules.loading: loading 1 modules... ",
+                             "2026-11-10 17:24:12,048 652 INFO odolution-com-arab-insurance-19-10-26-40105896 odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) ",
+                             "2026-11-10 17:24:12,103 652 INFO odolution-com-arab-insurance-19-10-26-40105896 odoo.modules.loading: loading 148 modules... ",
+                             "2026-11-10 17:24:14,975 652 INFO odolution-com-arab-insurance-19-10-26-40105896 odoo.modules.loading: 148 modules loaded in 2.87s, 0 queries (+0 extra) ",
+                             "2026-11-10 17:24:15,200 652 INFO odolution-com-arab-insurance-19-10-26-40105896 odoo.modules.loading: Modules loaded. ",
+                             "2026-11-10 17:24:15,290 652 INFO odolution-com-arab-insurance-19-10-26-40105896 odoo.registry: Registry loaded in 3.289s ",
+                             "2026-11-10 17:24:15,295 652 INFO odolution-com-arab-insurance-19-10-26-40105896 odoo.addons.base.models.ir_http: Generating routing map for key 1 ",
+                             "2026-11-10 17:24:15,678 652 INFO odolution-com-arab-insurance-19-10-26-40105896 werkzeug: 34.166.21.39 - - [10/Nov/2026 17:24:15] \"GET /web/login HTTP/1.0\" 200 - 92 0.055 3.621",
+                             "2026-11-10 17:24:15,710 652 INFO odolution-com-arab-insurance-19-10-26-40105896 werkzeug: 34.166.21.39 - - [10/Nov/2026 17:24:15] \"GET /odoo HTTP/1.0\" 303 - 1 0.001 0.002",
+                             "2026-11-10 17:24:15,729 652 INFO odolution-com-arab-insurance-19-10-26-40105896 werkzeug: 34.166.21.39 - - [10/Nov/2026 17:24:15] \"GET /web/login?redirect=/odoo? HTTP/1.0\" 200 - 7 0.003 0.013",
+                             "2026-11-10 17:24:15,811 652 INFO odolution-com-arab-insurance-19-10-26-40105896 werkzeug: 34.166.21.39 - - [10/Nov/2026 17:24:15] \"GET / HTTP/1.0\" 200 - 23 0.014 0.038"
+                         ],
+    "runtime_errors":  [
+                           "2026-11-10 17:18:34,936 318 ERROR odolution-com-arab-insurance-19-10-26-40105896 odoo.sql_db: bad query: b\u0027LOCK ir_attachment IN SHARE MODE\u0027"
+                       ]
+}

@@ -1,0 +1,364 @@
+diff --git a/aib_accounting/__manifest__.py b/aib_accounting/__manifest__.py
+index a4920c4..ee696ab 100644
+--- a/aib_accounting/__manifest__.py
++++ b/aib_accounting/__manifest__.py
+@@ -1,6 +1,6 @@
+ {
+     'name': 'AIB Accounting Integration',
+-    'version': '19.0.1.0.0',
++    'version': '19.0.1.0.1',
+     'category': 'Insurance Brokerage/Accounting',
+     'summary': 'Integrate AIB commissions and collections with standard Odoo Accounting',
+     'author': 'AIB',
+diff --git a/aib_accounting/models/insurance_collection.py b/aib_accounting/models/insurance_collection.py
+index be64699..a8c64f9 100644
+--- a/aib_accounting/models/insurance_collection.py
++++ b/aib_accounting/models/insurance_collection.py
+@@ -213,10 +213,16 @@ class InsuranceCollection(models.Model):
+             'journal_id': journal.id,
+             'communication': self.payment_reference or self.name,
+         })
++        if not wizard.payment_method_line_id.payment_account_id:
++            raise ValidationError(
++                'Configure an outstanding receipts account on the selected inbound payment method before registering payment.'
++            )
+         payments = wizard._create_payments()
+         payment = payments[:1]
+         if not payment:
+             raise UserError('Odoo did not create a payment for this collection allocation.')
++        if not payment.move_id or payment.move_id.state != 'posted':
++            raise ValidationError('The collection payment must have a posted journal entry before allocation is completed.')
+         return payment
+ 
+ 
+diff --git a/aib_accounting/models/insurance_commission.py b/aib_accounting/models/insurance_commission.py
+index 434319d..2e6138f 100644
+--- a/aib_accounting/models/insurance_commission.py
++++ b/aib_accounting/models/insurance_commission.py
+@@ -256,11 +256,16 @@ class InsuranceCommission(models.Model):
+             company = commission.company_id
+             if not company.enable_aib_accounting:
+                 continue
+-            if company.commission_invoice_trigger != 'commission_received':
+-                continue
+             if not company.auto_create_commission_invoice:
+                 continue
+-            amount_to_invoice = commission.commission_received_amount - commission.amount_invoiced
++            if company.commission_invoice_trigger == 'commission_receivable':
++                if commission.state != 'receivable' or commission.invoice_ids.filtered(lambda move: move.state != 'cancel'):
++                    continue
++                amount_to_invoice = commission.commission_eligible_amount
++            elif company.commission_invoice_trigger == 'commission_received':
++                amount_to_invoice = commission.commission_received_amount - commission.amount_invoiced
++            else:
++                continue
+             if commission.currency_id.is_zero(amount_to_invoice) or amount_to_invoice < 0:
+                 continue
+             invoice = commission.with_context(commission_invoice_amount=amount_to_invoice)._create_commission_invoice()
+diff --git a/aib_accounting/tests/test_aib_accounting.py b/aib_accounting/tests/test_aib_accounting.py
+index 7428354..a7f860b 100644
+--- a/aib_accounting/tests/test_aib_accounting.py
++++ b/aib_accounting/tests/test_aib_accounting.py
+@@ -57,6 +57,7 @@ class TestAibAccounting(TransactionCase):
+             'company_id': cls.company.id,
+             'default_account_id': cls.bank_account.id,
+         })
++        cls.payment_journal.inbound_payment_method_line_ids.payment_account_id = cls.bank_account
+         cls.insurer_partner.property_account_receivable_id = cls.receivable_account
+         cls.product = cls.env['product.product'].create({
+             'name': 'AIB Commission Test Service',
+@@ -152,7 +153,7 @@ class TestAibAccounting(TransactionCase):
+         commission.action_mark_receivable()
+         self.assertFalse(commission.invoice_ids)
+ 
+-        commission.commission_received_amount = 40.0
++        commission.new_receipt_amount = 40.0
+         commission.action_register_partial_receipt()
+ 
+         self.assertEqual(commission.invoice_count, 1)
+@@ -181,7 +182,7 @@ class TestAibAccounting(TransactionCase):
+         self.company.commission_invoice_trigger = 'commission_received'
+         commission = self._create_commission()
+         commission.action_mark_receivable()
+-        commission.commission_received_amount = 40.0
++        commission.new_receipt_amount = 40.0
+         commission.action_register_partial_receipt()
+         commission.invoice_id.button_cancel()
+ 
+@@ -239,3 +240,55 @@ class TestAibAccounting(TransactionCase):
+ 
+         with self.assertRaises(ValidationError):
+             commission.action_cancel()
++
++    def test_partial_payment_has_posted_entry_and_correct_residual(self):
++        commission = self._create_commission(premium=6000.0, paid_premium=6000.0)
++        commission.action_mark_receivable()
++        invoice = commission.invoice_id
++        self.assertEqual(invoice.amount_total, 600.0)
++        invoice.action_post()
++        collection = self.env['insurance.collection'].create({
++            'insurance_company_id': self.insurer.id,
++            'received_amount': 300.0,
++            'currency_id': self.currency.id,
++            'company_id': self.company.id,
++            'payment_journal_id': self.payment_journal.id,
++            'line_ids': [(0, 0, {'commission_id': commission.id, 'allocated_amount': 300.0})],
++        })
++        collection.action_confirm()
++        collection.action_allocate()
++        self.assertTrue(collection.payment_id.move_id)
++        self.assertEqual(collection.payment_id.move_id.state, 'posted')
++        self.assertEqual(invoice.amount_residual, 300.0)
++        self.assertEqual(commission.amount_paid, 300.0)
++        self.assertEqual(commission.commission_outstanding_amount, 300.0)
++        final_collection = collection.copy({
++            'received_amount': 300.0,
++            'state': 'draft',
++            'payment_ids': [(5, 0, 0)],
++            'line_ids': [(5, 0, 0), (0, 0, {'commission_id': commission.id, 'allocated_amount': 300.0})],
++        })
++        final_collection.action_confirm()
++        final_collection.action_allocate()
++        self.assertEqual(final_collection.payment_id.move_id.state, 'posted')
++        self.assertEqual(invoice.amount_residual, 0.0)
++        self.assertEqual(commission.commission_outstanding_amount, 0.0)
++
++    def test_missing_outstanding_account_blocks_collection_payment(self):
++        self.payment_journal.inbound_payment_method_line_ids.payment_account_id = False
++        commission = self._create_commission()
++        commission.action_mark_receivable()
++        commission.invoice_id.action_post()
++        collection = self.env['insurance.collection'].create({
++            'insurance_company_id': self.insurer.id,
++            'received_amount': 40.0,
++            'currency_id': self.currency.id,
++            'company_id': self.company.id,
++            'payment_journal_id': self.payment_journal.id,
++            'line_ids': [(0, 0, {'commission_id': commission.id, 'allocated_amount': 40.0})],
++        })
++        collection.action_confirm()
++        with self.assertRaisesRegex(ValidationError, 'outstanding receipts account'):
++            collection.action_allocate()
++        self.assertFalse(collection.payment_ids)
++        self.assertEqual(commission.invoice_id.amount_residual, 70.0)
+diff --git a/aib_commission/tests/test_insurance_commission.py b/aib_commission/tests/test_insurance_commission.py
+index 107f694..e5c4f3a 100644
+--- a/aib_commission/tests/test_insurance_commission.py
++++ b/aib_commission/tests/test_insurance_commission.py
+@@ -11,6 +11,9 @@ class TestInsuranceCommission(TransactionCase):
+     def setUpClass(cls):
+         super().setUpClass()
+         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
++        # Exercise the base commission lifecycle independently of policy-issued automation.
++        if 'commission_eligibility_rule_id' in cls.env.company._fields:
++            cls.env.company.commission_eligibility_rule_id = cls.env.ref('aib_commission_engine.commission_rule_aib_full_premium')
+ 
+         cls.partner = cls.env['res.partner'].create({'name': 'Commission Customer'})
+         cls.insurance_type = cls.env.ref('aib_base.insurance_type_motor')
+@@ -126,7 +129,7 @@ class TestInsuranceCommission(TransactionCase):
+         commission.write({'paid_premium_amount': 5000.0})
+         commission.action_mark_receivable()
+         self.assertEqual(commission.state, 'receivable')
+-        commission.write({'commission_received_amount': 200.0})
++        commission.write({'new_receipt_amount': 200.0})
+         commission.action_register_partial_receipt()
+         self.assertEqual(commission.state, 'partially_received')
+         self.assertEqual(commission.commission_outstanding_amount, 300.0)
+diff --git a/aib_commission_engine/__manifest__.py b/aib_commission_engine/__manifest__.py
+index 907f64e..86b593e 100644
+--- a/aib_commission_engine/__manifest__.py
++++ b/aib_commission_engine/__manifest__.py
+@@ -1,6 +1,6 @@
+ {
+     'name': 'AIB Commission Engine',
+-    'version': '19.0.1.0.0',
++    'version': '19.0.1.0.1',
+     'category': 'Insurance Brokerage',
+     'summary': 'Reusable brokerage commission eligibility and accounting orchestration',
+     'author': 'AIB',
+diff --git a/aib_commission_engine/models/insurance_commission.py b/aib_commission_engine/models/insurance_commission.py
+index 7c106fe..6da97db 100644
+--- a/aib_commission_engine/models/insurance_commission.py
++++ b/aib_commission_engine/models/insurance_commission.py
+@@ -83,7 +83,10 @@ class InsuranceCommission(models.Model):
+                 commission.write({'state': 'invoiced'})
+                 self.env['insurance.workflow.activity.rule'].apply_for_records(commission, 'invoiced')
+         if others:
+-            return super(InsuranceCommission, others).action_mark_receivable()
++            super(InsuranceCommission, others).action_mark_receivable()
++            for commission in others.filtered(lambda record: record.state == 'receivable' and record.invoice_ids):
++                commission.write({'state': 'invoiced'})
++                self.env['insurance.workflow.activity.rule'].apply_for_records(commission, 'invoiced')
+         return True
+ 
+     def action_create_invoice(self):
+diff --git a/aib_commission_engine/tests/test_commission_engine.py b/aib_commission_engine/tests/test_commission_engine.py
+index 0195843..c1cb016 100644
+--- a/aib_commission_engine/tests/test_commission_engine.py
++++ b/aib_commission_engine/tests/test_commission_engine.py
+@@ -59,6 +59,7 @@ class TestCommissionEngine(TransactionCase):
+             'company_id': cls.company.id,
+             'default_account_id': cls.bank_account.id,
+         })
++        cls.payment_journal.inbound_payment_method_line_ids.payment_account_id = cls.bank_account
+         cls.insurer_partner.property_account_receivable_id = cls.receivable_account
+         cls.service_product = cls.env['product.product'].create({
+             'name': 'CE Brokerage Commission',
+diff --git a/aib_direct_policy/__manifest__.py b/aib_direct_policy/__manifest__.py
+index 088fb65..a292d30 100644
+--- a/aib_direct_policy/__manifest__.py
++++ b/aib_direct_policy/__manifest__.py
+@@ -1,6 +1,6 @@
+ {
+     'name': 'AIB Direct Policy Workflow',
+-    'version': '19.0.1.0.0',
++    'version': '19.0.1.0.1',
+     'category': 'Insurance Brokerage',
+     'summary': 'Direct opportunity-to-policy workflow for configurable brokerage operations',
+     'author': 'AIB',
+diff --git a/aib_direct_policy/models/insurance_policy.py b/aib_direct_policy/models/insurance_policy.py
+index 3b603dd..6498e6f 100644
+--- a/aib_direct_policy/models/insurance_policy.py
++++ b/aib_direct_policy/models/insurance_policy.py
+@@ -37,7 +37,9 @@ class InsurancePolicy(models.Model):
+     @api.model_create_multi
+     def create(self, vals_list):
+         for vals in vals_list:
+-            if vals.get('lead_id') and not vals.get('quotation_id') and not vals.get('comparison_id'):
++            if vals.get('quotation_id') or vals.get('comparison_id'):
++                vals.setdefault('policy_source', 'crm_market')
++            elif vals.get('lead_id'):
+                 vals.setdefault('policy_source', 'direct_opportunity')
+         policies = super().create(vals_list)
+         for policy, vals in zip(policies, vals_list):
+diff --git a/aib_market/tests/test_insurance_market_placement.py b/aib_market/tests/test_insurance_market_placement.py
+index e35d014..fae468d 100644
+--- a/aib_market/tests/test_insurance_market_placement.py
++++ b/aib_market/tests/test_insurance_market_placement.py
+@@ -116,7 +116,7 @@ class TestInsuranceMarketPlacement(TransactionCase):
+         # Preparing → RFQ Sent
+         placement.action_send_rfqs()
+         self.assertEqual(placement.state, 'rfq_sent')
+-        self.assertEqual(insurer.state, 'rfq_sent')
++        self.assertEqual(insurer.state, 'rfq_prepared')  # Composer is opened; no email is sent yet.
+         
+         # RFQ Sent → Responses Received
+         placement.action_mark_responses_received()
+@@ -155,7 +155,7 @@ class TestInsuranceMarketPlacement(TransactionCase):
+         })
+ 
+         self.assertIn('Test Insurer 1', insurer.display_name)
+-        self.assertIn('RFQ Line', insurer.display_name)
++        self.assertIn(insurer.insurance_type_id.display_name, insurer.display_name)
+ 
+     def test_05_kpi_computations(self):
+         """Test KPI computed fields."""
+@@ -177,6 +177,9 @@ class TestInsuranceMarketPlacement(TransactionCase):
+         self.assertEqual(insurer2.state, 'rfq_prepared')
+         placement.action_send_rfqs()
+         
++        # Simulate successful manual dispatch without sending external email.
++        (insurer1 | insurer2).write({'state': 'rfq_sent'})
++
+         # Check KPIs
+         placement.invalidate_recordset()
+         self.assertEqual(placement.insurer_count, 2)
+@@ -269,7 +272,7 @@ class TestInsuranceMarketPlacement(TransactionCase):
+ 
+         placement.action_send_rfqs()
+ 
+-        self.assertEqual(insurer.state, 'rfq_sent')
++        self.assertEqual(insurer.state, 'rfq_prepared')  # Composer is opened; no email is sent yet.
+         self.assertEqual(placement.state, 'rfq_sent')
+ 
+     def test_secure_response_link_created_when_rfq_sent(self):
+@@ -286,12 +289,16 @@ class TestInsuranceMarketPlacement(TransactionCase):
+         placement.action_prepare_rfqs()
+         placement.action_send_rfqs()
+ 
++        second_composer = insurer2.action_send_rfq()
++        self.assertEqual(second_composer['res_model'], 'mail.compose.message')
+         self.assertTrue(insurer1.access_token)
+         self.assertTrue(insurer2.access_token)
+         self.assertNotEqual(insurer1.access_token, insurer2.access_token)
+         self.assertEqual(insurer1.token_state, 'active')
+         self.assertIn('/aib/rfq/response/', insurer1.access_url)
+-        self.assertIn(insurer1.access_url, insurer1.rfq_mail_id.body_html)
++        first_composer = insurer1.action_send_rfq()
++        self.assertIn(insurer1.access_url, first_composer['context']['default_body'])
++        self.assertFalse(insurer1.rfq_mail_id, 'Opening the composer must not queue external email')
+ 
+     def test_public_draft_response_does_not_count_as_received(self):
+         placement = self.env['insurance.market.placement'].create_from_lead(self.lead.id)
+@@ -350,7 +357,7 @@ class TestInsuranceMarketPlacement(TransactionCase):
+         })
+         placement.action_prepare_rfqs()
+         placement.action_send_rfqs()
+-        insurer._public_submit_response({'quoted_premium': '1000'}, action='submit')
++        insurer._public_submit_response({'quotation_reference': 'DUP-1000', 'quoted_premium': '1000'}, action='submit')
+ 
+         with self.assertRaises(ValidationError):
+             insurer._public_submit_response({'quoted_premium': '1100'}, action='submit')
+@@ -383,7 +390,7 @@ class TestInsuranceMarketPlacement(TransactionCase):
+         insurer.action_revoke_response_link()
+ 
+         with self.assertRaises(ValidationError):
+-            insurer._public_submit_response({'quoted_premium': '1000'}, action='submit')
++            insurer._public_submit_response({'quotation_reference': 'DUP-1000', 'quoted_premium': '1000'}, action='submit')
+ 
+     def test_09_sla_status_computation(self):
+         """Test SLA status computation."""
+diff --git a/aib_policy_worksheet_export/tests/test_policy_worksheet_export.py b/aib_policy_worksheet_export/tests/test_policy_worksheet_export.py
+index 2abef63..ccd48fb 100644
+--- a/aib_policy_worksheet_export/tests/test_policy_worksheet_export.py
++++ b/aib_policy_worksheet_export/tests/test_policy_worksheet_export.py
+@@ -495,6 +495,7 @@ class TestPolicyWorksheetExport(TransactionCase):
+             'company_id': self.company.id,
+             'default_account_id': cash_account.id,
+         })
++        self.payment_journal.inbound_payment_method_line_ids.payment_account_id = cash_account
+         insurer_partner.property_account_receivable_id = receivable_account
+         product = self.env['product.product'].create({
+             'name': 'Worksheet Export Commission Service',
+diff --git a/aib_regulatory_reporting/__manifest__.py b/aib_regulatory_reporting/__manifest__.py
+index 6b6bc8a..1d3cb6b 100644
+--- a/aib_regulatory_reporting/__manifest__.py
++++ b/aib_regulatory_reporting/__manifest__.py
+@@ -1,6 +1,6 @@
+ {
+     'name': 'AIB Government Regulatory Reporting',
+-    'version': '19.0.1.0.0',
++    'version': '19.0.1.0.1',
+     'category': 'Insurance Brokerage',
+     'summary': 'Government workbook generation for AIB regulatory production and collection reporting',
+     'author': 'AIB',
+diff --git a/aib_regulatory_reporting/models/insurance_policy.py b/aib_regulatory_reporting/models/insurance_policy.py
+index daaebe8..26beffd 100644
+--- a/aib_regulatory_reporting/models/insurance_policy.py
++++ b/aib_regulatory_reporting/models/insurance_policy.py
+@@ -63,6 +63,10 @@ class InsurancePolicy(models.Model):
+ 
+     @api.model
+     def _update_total_premium_amount_values(self, vals):
++        # Preserve explicit quotation snapshots and imported totals. Regulatory
++        # totals have their own computed field and must not replace them.
++        if 'total_premium_amount' in vals:
++            return
+         if not {'premium_amount', 'issuing_fee_amount', 'supervision_fee_amount'}.intersection(vals):
+             return
+         premium = vals.get('premium_amount')
+diff --git a/muk_web_theme/tests/test_session_info.py b/muk_web_theme/tests/test_session_info.py
+index 8301fdc..6c1d13c 100644
+--- a/muk_web_theme/tests/test_session_info.py
++++ b/muk_web_theme/tests/test_session_info.py
+@@ -28,7 +28,7 @@ class TestSessionInfo(HttpCase):
+         self.authenticate('muk_web_theme_multi_co', 'muk_web_theme_multi_co')
+         info = self.make_jsonrpc_request('/web/session/get_session_info', {})
+         allowed = info['user_companies']['allowed_companies']
+-        self.assertIn(company_a.id, allowed)
+-        self.assertIn('has_background_image', allowed[company_a.id])
+-        self.assertNotIn(company_b.id, allowed)
++        self.assertIn(str(company_a.id), allowed)
++        self.assertIn('has_background_image', allowed[str(company_a.id)])
++        self.assertNotIn(str(company_b.id), allowed)
+         self.assertEqual(user.company_id, company_a)

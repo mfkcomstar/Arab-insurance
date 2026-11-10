@@ -1,0 +1,170 @@
+﻿{
+    "TestAibAccounting.test_cancelled_invoice_is_not_counted_against_received_amount":  {
+                                                                                            "status":  "passed",
+                                                                                            "run":  "final-suite.log"
+                                                                                        },
+    "TestAibAccounting.test_collection_registers_partial_payment_against_commission_invoice":  {
+                                                                                                   "status":  "passed",
+                                                                                                   "run":  "final-suite.log"
+                                                                                               },
+    "TestAibAccounting.test_invoice_uses_product_income_before_company_fallback":  {
+                                                                                       "status":  "passed",
+                                                                                       "run":  "final-suite.log"
+                                                                                   },
+    "TestAibAccounting.test_missing_insurer_receivable_account_is_blocked_cleanly":  {
+                                                                                         "status":  "passed",
+                                                                                         "run":  "final-suite.log"
+                                                                                     },
+    "TestAibAccounting.test_posted_invoice_blocks_commission_cancellation":  {
+                                                                                 "status":  "passed",
+                                                                                 "run":  "final-suite.log"
+                                                                             },
+    "TestAibAccounting.test_receivable_commission_creates_draft_invoice_for_eligible_amount":  {
+                                                                                                   "status":  "passed",
+                                                                                                   "run":  "final-suite.log"
+                                                                                               },
+    "TestAibAccounting.test_received_trigger_invoices_only_the_newly_received_amount":  {
+                                                                                            "status":  "passed",
+                                                                                            "run":  "final-suite.log"
+                                                                                        },
+    "TestBrokerCoordination.test_02e_activate_repairs_missing_issuance_coordination":  {
+                                                                                           "status":  "passed",
+                                                                                           "run":  "final-suite.log"
+                                                                                       },
+    "TestCommissionEngine.test_approve_receivable_creates_draft_invoice_for_commission_only":  {
+                                                                                                   "status":  "passed",
+                                                                                                   "run":  "final-suite.log"
+                                                                                               },
+    "TestCommissionEngine.test_partial_collection_payment_syncs_commission_balance":  {
+                                                                                          "status":  "passed",
+                                                                                          "run":  "final-suite.log"
+                                                                                      },
+    "TestCommissionEngine.test_reversal_requires_reason_and_creates_credit_note":  {
+                                                                                       "status":  "passed",
+                                                                                       "run":  "final-suite.log"
+                                                                                   },
+    "TestContact360.test_05_customer_and_insurer_360_counts_and_domains":  {
+                                                                               "status":  "passed",
+                                                                               "run":  "final-suite.log"
+                                                                           },
+    "TestDirectPolicyWorkflow.test_direct_policy_auto_creates_one_commission":  {
+                                                                                    "status":  "passed",
+                                                                                    "run":  "final-suite.log"
+                                                                                },
+    "TestDirectPolicyWorkflow.test_direct_workflow_to_collection_renewal_claim":  {
+                                                                                      "status":  "passed",
+                                                                                      "run":  "final-suite.log"
+                                                                                  },
+    "TestDirectPolicyWorkflow.test_enterprise_policy_from_comparison_still_requires_selected_quote":  {
+                                                                                                          "status":  "passed",
+                                                                                                          "run":  "final-suite.log"
+                                                                                                      },
+    "TestInsuranceCommission.test_01_create_commission_from_policy":  {
+                                                                          "status":  "passed",
+                                                                          "run":  "final-targeted.log"
+                                                                      },
+    "TestInsuranceCommission.test_02_duplicate_commission_opens_existing":  {
+                                                                                "status":  "passed",
+                                                                                "run":  "final-targeted.log"
+                                                                            },
+    "TestInsuranceCommission.test_03_snapshot_remains_frozen":  {
+                                                                    "status":  "passed",
+                                                                    "run":  "final-targeted.log"
+                                                                },
+    "TestInsuranceCommission.test_04_eligible_and_outstanding_calculation":  {
+                                                                                 "status":  "passed",
+                                                                                 "run":  "final-targeted.log"
+                                                                             },
+    "TestInsuranceCommission.test_04b_policy_commission_becomes_receivable_without_paid_premium":  {
+                                                                                                       "status":  "passed",
+                                                                                                       "run":  "final-targeted.log"
+                                                                                                   },
+    "TestInsuranceCommission.test_05_workflow_partial_and_full_receipt":  {
+                                                                              "status":  "passed",
+                                                                              "run":  "final-targeted.log"
+                                                                          },
+    "TestInsuranceCommission.test_06_validations":  {
+                                                        "status":  "passed",
+                                                        "run":  "final-targeted.log"
+                                                    },
+    "TestInsuranceCommission.test_07_cannot_fully_receive_with_outstanding":  {
+                                                                                  "status":  "passed",
+                                                                                  "run":  "final-targeted.log"
+                                                                              },
+    "TestInsuranceCommission.test_08_activity_and_smart_buttons":  {
+                                                                       "status":  "passed",
+                                                                       "run":  "final-targeted.log"
+                                                                   },
+    "TestInsuranceCommission.test_09_received_commission_snapshot_locked_for_sales":  {
+                                                                                          "status":  "passed",
+                                                                                          "run":  "final-targeted.log"
+                                                                                      },
+    "TestInsuranceCommission.test_10_future_hooks_return_values_only":  {
+                                                                            "status":  "passed",
+                                                                            "run":  "final-targeted.log"
+                                                                        },
+    "TestInsuranceCommission.test_11_commission_snapshots_insurer_quote_reference":  {
+                                                                                         "status":  "passed",
+                                                                                         "run":  "final-targeted.log"
+                                                                                     },
+    "TestInsuranceMarketPlacement.test_03_workflow_transitions":  {
+                                                                      "status":  "passed",
+                                                                      "run":  "final-suite.log"
+                                                                  },
+    "TestInsuranceMarketPlacement.test_05_kpi_computations":  {
+                                                                  "status":  "passed",
+                                                                  "run":  "final-suite.log"
+                                                              },
+    "TestInsuranceMarketPlacement.test_market_insurer_display_name_uses_insurer_name":  {
+                                                                                            "status":  "passed",
+                                                                                            "run":  "final-suite.log"
+                                                                                        },
+    "TestInsuranceMarketPlacement.test_public_duplicate_final_submission_blocked":  {
+                                                                                        "status":  "passed",
+                                                                                        "run":  "final-suite.log"
+                                                                                    },
+    "TestInsuranceMarketPlacement.test_secure_response_link_created_when_rfq_sent":  {
+                                                                                         "status":  "passed",
+                                                                                         "run":  "final-suite.log"
+                                                                                     },
+    "TestInsuranceMarketPlacement.test_send_rfqs_syncs_existing_preparing_draft_lines":  {
+                                                                                             "status":  "passed",
+                                                                                             "run":  "final-suite.log"
+                                                                                         },
+    "TestInsurancePolicy.test_01_create_policy_from_selected_comparison":  {
+                                                                               "status":  "passed",
+                                                                               "run":  "final-suite.log"
+                                                                           },
+    "TestInsurancePolicy.test_03_snapshot_remains_frozen":  {
+                                                                "status":  "passed",
+                                                                "run":  "final-suite.log"
+                                                            },
+    "TestInsurancePolicy.test_04_workflow_and_activity":  {
+                                                              "status":  "passed",
+                                                              "run":  "final-suite.log"
+                                                          },
+    "TestInsurancePolicy.test_05_active_policy_snapshot_fields_locked":  {
+                                                                             "status":  "passed",
+                                                                             "run":  "final-suite.log"
+                                                                         },
+    "TestInsuranceRenewal.test_create_renewal_from_policy":  {
+                                                                 "status":  "passed",
+                                                                 "run":  "final-suite.log"
+                                                             },
+    "TestInsuranceRenewal.test_create_renewal_opportunity_and_market_placement":  {
+                                                                                      "status":  "passed",
+                                                                                      "run":  "final-suite.log"
+                                                                                  },
+    "TestPolicyWorksheetExport.test_paid_invoice_exports_client_collection_with_policy_and_commission_sources":  {
+                                                                                                                     "status":  "passed",
+                                                                                                                     "run":  "final-suite.log"
+                                                                                                                 },
+    "TestRegulatoryReporting.test_05_generate_template_workbook_and_traceability":  {
+                                                                                        "status":  "passed",
+                                                                                        "run":  "final-suite.log"
+                                                                                    },
+    "TestSessionInfo.test_session_info_skips_archived_company":  {
+                                                                     "status":  "passed",
+                                                                     "run":  "session-final.log"
+                                                                 }
+}

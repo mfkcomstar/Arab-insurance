@@ -1,0 +1,14 @@
+﻿[
+    {
+        "service":  "http",
+        "exit_code":  0,
+        "output":  "At the moment, no http workers are alive. Restart operation aborted.\n",
+        "error":  ""
+    },
+    {
+        "service":  "cron",
+        "exit_code":  0,
+        "output":  "At the moment, no cron workers are alive. Restart operation aborted.\n",
+        "error":  ""
+    }
+]

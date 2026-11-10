@@ -1,0 +1,57 @@
+﻿{
+    "company":  [
+                    {
+                        "id":  1,
+                        "name":  "Arab Insurance",
+                        "currency_id":  [
+                                            94,
+                                            "KWD"
+                                        ],
+                        "country_id":  [
+                                           122,
+                                           "Kuwait"
+                                       ],
+                        "chart_template":  "kw",
+                        "insurance_workflow_mode":  "enterprise",
+                        "enable_aib_accounting":  false,
+                        "premium_statement_journal_id":  [
+                                                             30,
+                                                             "Premium Statements"
+                                                         ],
+                        "default_client_premium_statement_account_id":  [
+                                                                            220,
+                                                                            "990101 Client Premium Statements"
+                                                                        ],
+                        "default_insurer_premium_statement_account_id":  [
+                                                                             221,
+                                                                             "990102 Insurer Premium Statements"
+                                                                         ],
+                        "commission_sales_journal_id":  [
+                                                            23,
+                                                            "Sales"
+                                                        ],
+                        "commission_income_account_id":  [
+                                                             222,
+                                                             "400190 Brokerage Commission Income"
+                                                         ],
+                        "commission_service_product_id":  [
+                                                              5,
+                                                              "[AIB-COMMISSION] Brokerage Commission"
+                                                          ],
+                        "default_inbound_payment_journal_id":  [
+                                                                   28,
+                                                                   "Bank"
+                                                               ]
+                    }
+                ],
+    "bank_inbound_methods":  [
+                                 {
+                                     "id":  11,
+                                     "name":  "Manual Payment",
+                                     "payment_account_id":  [
+                                                                223,
+                                                                "100190 Outstanding Receipts"
+                                                            ]
+                                 }
+                             ]
+}

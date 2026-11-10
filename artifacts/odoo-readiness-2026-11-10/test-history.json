@@ -1,0 +1,260 @@
+﻿{
+    "install.log":  {
+                        "summary":  [
+                                        "2026-11-10 17:05:56,296 119 ERROR odolution-com-arab-insurance-19-10-26-40105896 odoo.tests.result: 16 failed, 23 error(s) of 228 tests when loading database \u0027odolution-com-arab-insurance-19-10-26-40105896\u0027 "
+                                    ],
+                        "failures":  [
+                                         {
+                                             "name":  "TestInsuranceMarketPlacement.test_03_workflow_transitions",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_market/tests/test_insurance_market_placement.py\", line 119, in test_03_workflow_transitions\n    self.assertEqual(insurer.state, \u0027rfq_sent\u0027)\nAssertionError: \u0027rfq_prepared\u0027 != \u0027rfq_sent\u0027\n- rfq_prepared\n+ rfq_sent\n\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceMarketPlacement.test_05_kpi_computations",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_market/tests/test_insurance_market_placement.py\", line 183, in test_05_kpi_computations\n    self.assertEqual(placement.insurers_invited, 2)\nAssertionError: 0 != 2\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceMarketPlacement.test_market_insurer_display_name_uses_insurer_name",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_market/tests/test_insurance_market_placement.py\", line 158, in test_market_insurer_display_name_uses_insurer_name\n    self.assertIn(\u0027RFQ Line\u0027, insurer.display_name)\nAssertionError: \u0027RFQ Line\u0027 not found in \u0027[TI1] Test Insurer 1 - Test Motor RFQ\u0027\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceMarketPlacement.test_public_duplicate_final_submission_blocked",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_market/tests/test_insurance_market_placement.py\", line 353, in test_public_duplicate_final_submission_blocked\n    insurer._public_submit_response({\u0027quoted_premium\u0027: \u00271000\u0027}, action=\u0027submit\u0027)\n  File \"/home/odoo/src/user/aib_market/models/insurance_market_insurer.py\", line 719, in _public_submit_response\n    raise ValidationError(_(\u0027Quotation Reference is required before submitting the insurer response.\u0027))\nodoo.exceptions.ValidationError: Quotation Reference is required before submitting the insurer response.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceMarketPlacement.test_secure_response_link_created_when_rfq_sent",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_market/tests/test_insurance_market_placement.py\", line 290, in test_secure_response_link_created_when_rfq_sent\n    self.assertTrue(insurer2.access_token)\nAssertionError: False is not true\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceMarketPlacement.test_send_rfqs_syncs_existing_preparing_draft_lines",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_market/tests/test_insurance_market_placement.py\", line 272, in test_send_rfqs_syncs_existing_preparing_draft_lines\n    self.assertEqual(insurer.state, \u0027rfq_sent\u0027)\nAssertionError: \u0027rfq_prepared\u0027 != \u0027rfq_sent\u0027\n- rfq_prepared\n+ rfq_sent\n\n "
+                                         },
+                                         {
+                                             "name":  "TestInsurancePolicy.test_01_create_policy_from_selected_comparison",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_policy/tests/test_insurance_policy.py\", line 88, in test_01_create_policy_from_selected_comparison\n    self.assertEqual(policy.total_premium_amount, quotation.total_premium)\nAssertionError: 6150.0 != 6450.0\n "
+                                         },
+                                         {
+                                             "name":  "TestInsurancePolicy.test_03_snapshot_remains_frozen",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_policy/tests/test_insurance_policy.py\", line 108, in test_03_snapshot_remains_frozen\n    self.assertEqual(policy.total_premium_amount, 6450.0)\nAssertionError: 6150.0 != 6450.0\n "
+                                         },
+                                         {
+                                             "name":  "TestInsurancePolicy.test_04_workflow_and_activity",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_policy/tests/test_insurance_policy.py\", line 143, in test_04_workflow_and_activity\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsurancePolicy.test_05_active_policy_snapshot_fields_locked",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_policy/tests/test_insurance_policy.py\", line 165, in test_05_active_policy_snapshot_fields_locked\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_01_create_commission_from_policy",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 70, in test_01_create_commission_from_policy\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_02_duplicate_commission_opens_existing",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 83, in test_02_duplicate_commission_opens_existing\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_03_snapshot_remains_frozen",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 92, in test_03_snapshot_remains_frozen\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_04_eligible_and_outstanding_calculation",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 99, in test_04_eligible_and_outstanding_calculation\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_04b_policy_commission_becomes_receivable_without_paid_premium",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 110, in test_04b_policy_commission_becomes_receivable_without_paid_premium\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_05_workflow_partial_and_full_receipt",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 121, in test_05_workflow_partial_and_full_receipt\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_06_validations",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 139, in test_06_validations\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_07_cannot_fully_receive_with_outstanding",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 152, in test_07_cannot_fully_receive_with_outstanding\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_08_activity_and_smart_buttons",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 165, in test_08_activity_and_smart_buttons\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_09_received_commission_snapshot_locked_for_sales",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 183, in test_09_received_commission_snapshot_locked_for_sales\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_10_future_hooks_return_values_only",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 204, in test_10_future_hooks_return_values_only\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceCommission.test_11_commission_snapshots_insurer_quote_reference",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 212, in test_11_commission_snapshots_insurer_quote_reference\n    policy = self._create_policy()\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 66, in _create_policy\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceRenewal.test_create_renewal_from_policy",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_renewal/tests/test_insurance_renewal.py\", line 79, in test_create_renewal_from_policy\n    self.assertEqual(renewal.current_premium, 1100.0)\nAssertionError: 1000.0 != 1100.0\n "
+                                         },
+                                         {
+                                             "name":  "TestInsuranceRenewal.test_create_renewal_opportunity_and_market_placement",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_renewal/tests/test_insurance_renewal.py\", line 98, in test_create_renewal_opportunity_and_market_placement\n    self.assertEqual(renewal.lead_id.current_premium, 1100.0)\nAssertionError: 1000.0 != 1100.0\n "
+                                         },
+                                         {
+                                             "name":  "TestDirectPolicyWorkflow.test_direct_policy_auto_creates_one_commission",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_direct_policy/tests/test_direct_policy_workflow.py\", line 133, in test_direct_policy_auto_creates_one_commission\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestDirectPolicyWorkflow.test_direct_workflow_to_collection_renewal_claim",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_direct_policy/tests/test_direct_policy_workflow.py\", line 143, in test_direct_workflow_to_collection_renewal_claim\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestDirectPolicyWorkflow.test_enterprise_policy_from_comparison_still_requires_selected_quote",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_direct_policy/tests/test_direct_policy_workflow.py\", line 219, in test_enterprise_policy_from_comparison_still_requires_selected_quote\n    self.assertEqual(policy.policy_source, \u0027crm_market\u0027)\nAssertionError: \u0027manual\u0027 != \u0027crm_market\u0027\n- manual\n+ crm_market\n\n "
+                                         },
+                                         {
+                                             "name":  "TestContact360.test_05_customer_and_insurer_360_counts_and_domains",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_contact_360/tests/test_contact_360.py\", line 149, in test_05_customer_and_insurer_360_counts_and_domains\n    policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestAibAccounting.test_cancelled_invoice_is_not_counted_against_received_amount",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_accounting/tests/test_aib_accounting.py\", line 185, in test_cancelled_invoice_is_not_counted_against_received_amount\n    commission.action_register_partial_receipt()\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 291, in action_register_partial_receipt\n    raise ValidationError(\u0027Enter a new receipt amount before registering a receipt.\u0027)\nodoo.exceptions.ValidationError: Enter a new receipt amount before registering a receipt.\n "
+                                         },
+                                         {
+                                             "name":  "TestAibAccounting.test_collection_registers_partial_payment_against_commission_invoice",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_accounting/tests/test_aib_accounting.py\", line 227, in test_collection_registers_partial_payment_against_commission_invoice\n    collection.action_allocate()\n  File \"/home/odoo/src/user/aib_workflow_activity/models/insurance_collection.py\", line 13, in action_allocate\n    result = super().action_allocate()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_accounting/models/insurance_collection.py\", line 103, in action_allocate\n    self._validate_accounting_before_allocation()\n  File \"/home/odoo/src/user/aib_accounting/models/insurance_collection.py\", line 177, in _validate_accounting_before_allocation\n    raise ValidationError(f\u0027Commission {commission.name} must have a commission invoice before allocation.\u0027)\nodoo.exceptions.ValidationError: Commission COM/2026/00022 must have a commission invoice before allocation.\n "
+                                         },
+                                         {
+                                             "name":  "TestAibAccounting.test_invoice_uses_product_income_before_company_fallback",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_accounting/tests/test_aib_accounting.py\", line 201, in test_invoice_uses_product_income_before_company_fallback\n    self.assertEqual(invoice_line.account_id, self.income_account)\nAssertionError: account.account() != account.account(54,)\n "
+                                         },
+                                         {
+                                             "name":  "TestAibAccounting.test_missing_insurer_receivable_account_is_blocked_cleanly",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_accounting/tests/test_aib_accounting.py\", line 207, in test_missing_insurer_receivable_account_is_blocked_cleanly\n    with self.assertRaisesRegex(ValidationError, \u0027receivable account\u0027):\nAssertionError: ValidationError not raised\n "
+                                         },
+                                         {
+                                             "name":  "TestAibAccounting.test_posted_invoice_blocks_commission_cancellation",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_accounting/tests/test_aib_accounting.py\", line 240, in test_posted_invoice_blocks_commission_cancellation\n    with self.assertRaises(ValidationError):\n  File \"/usr/lib/python3.12/contextlib.py\", line 144, in __exit__\n    next(self.gen)\n  File \"/home/odoo/src/odoo/odoo/tests/common.py\", line 514, in _assertRaises\n    with ExitStack() as inner:\n  File \"/usr/lib/python3.12/contextlib.py\", line 610, in __exit__\n    raise exc_details[1]\n  File \"/usr/lib/python3.12/contextlib.py\", line 595, in __exit__\n    if cb(*exc_details):\n       ^^^^^^^^^^^^^^^^\nAssertionError: ValidationError not raised\n "
+                                         },
+                                         {
+                                             "name":  "TestAibAccounting.test_receivable_commission_creates_draft_invoice_for_eligible_amount",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_accounting/tests/test_aib_accounting.py\", line 102, in test_receivable_commission_creates_draft_invoice_for_eligible_amount\n    self.assertEqual(commission.invoice_count, 1)\nAssertionError: 0 != 1\n "
+                                         },
+                                         {
+                                             "name":  "TestAibAccounting.test_received_trigger_invoices_only_the_newly_received_amount",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_accounting/tests/test_aib_accounting.py\", line 156, in test_received_trigger_invoices_only_the_newly_received_amount\n    commission.action_register_partial_receipt()\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 291, in action_register_partial_receipt\n    raise ValidationError(\u0027Enter a new receipt amount before registering a receipt.\u0027)\nodoo.exceptions.ValidationError: Enter a new receipt amount before registering a receipt.\n "
+                                         },
+                                         {
+                                             "name":  "TestBrokerCoordination.test_02e_activate_repairs_missing_issuance_coordination",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_broker_coordination/tests/test_broker_coordination.py\", line 131, in test_02e_activate_repairs_missing_issuance_coordination\n    self.policy.action_activate()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 100, in action_activate\n    self._ensure_premium_statement_due_draft()\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/models/insurance_policy.py\", line 49, in _ensure_premium_statement_due_draft\n    raise UserError(_(\u0027Premium Statement Journal is not configured.\u0027))\nodoo.exceptions.UserError: Premium Statement Journal is not configured.\n "
+                                         },
+                                         {
+                                             "name":  "TestCommissionEngine.test_approve_receivable_creates_draft_invoice_for_commission_only",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission_engine/tests/test_commission_engine.py\", line 159, in test_approve_receivable_creates_draft_invoice_for_commission_only\n    self.assertEqual(commission.state, \u0027invoiced\u0027)\nAssertionError: \u0027receivable\u0027 != \u0027invoiced\u0027\n- receivable\n+ invoiced\n\n "
+                                         },
+                                         {
+                                             "name":  "TestCommissionEngine.test_partial_collection_payment_syncs_commission_balance",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission_engine/tests/test_commission_engine.py\", line 183, in test_partial_collection_payment_syncs_commission_balance\n    collection.action_allocate()\n  File \"/home/odoo/src/user/aib_workflow_activity/models/insurance_collection.py\", line 13, in action_allocate\n    result = super().action_allocate()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_accounting/models/insurance_collection.py\", line 103, in action_allocate\n    self._validate_accounting_before_allocation()\n  File \"/home/odoo/src/user/aib_accounting/models/insurance_collection.py\", line 177, in _validate_accounting_before_allocation\n    raise ValidationError(f\u0027Commission {commission.name} must have a commission invoice before allocation.\u0027)\nodoo.exceptions.ValidationError: Commission COM/2026/00047 must have a commission invoice before allocation.\n "
+                                         },
+                                         {
+                                             "name":  "TestCommissionEngine.test_reversal_requires_reason_and_creates_credit_note",
+                                             "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission_engine/tests/test_commission_engine.py\", line 194, in test_reversal_requires_reason_and_creates_credit_note\n    with self.assertRaises(ValidationError):\n  File \"/usr/lib/python3.12/contextlib.py\", line 144, in __exit__\n    next(self.gen)\n  File \"/home/odoo/src/odoo/odoo/tests/common.py\", line 514, in _assertRaises\n    with ExitStack() as inner:\n  File \"/usr/lib/python3.12/contextlib.py\", line 610, in __exit__\n    raise exc_details[1]\n  File \"/usr/lib/python3.12/contextlib.py\", line 595, in __exit__\n    if cb(*exc_details):\n       ^^^^^^^^^^^^^^^^\nAssertionError: ValidationError not raised\n "
+                                         }
+                                     ],
+                        "tests_started":  228
+                    },
+    "verification.log":  {
+                             "summary":  [
+                                             "2026-11-10 17:11:11,372 195 ERROR odolution-com-arab-insurance-19-10-26-40105896 odoo.tests.result: 1 failed, 1 error(s) of 125 tests when loading database \u0027odolution-com-arab-insurance-19-10-26-40105896\u0027 "
+                                         ],
+                             "failures":  [
+                                              {
+                                                  "name":  "TestRegulatoryReporting.test_05_generate_template_workbook_and_traceability",
+                                                  "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_regulatory_reporting/tests/test_regulatory_reporting.py\", line 345, in test_05_generate_template_workbook_and_traceability\n    self.assertFalse(submission.validation_error_count, submission.validation_issue_ids.mapped(\u0027message\u0027))\nAssertionError: 2 is not false : [\u0027Source currency differs from report currency.\u0027, \u0027Source currency differs from report currency.\u0027]\n "
+                                              },
+                                              {
+                                                  "name":  "TestPolicyWorksheetExport.test_paid_invoice_exports_client_collection_with_policy_and_commission_sources",
+                                                  "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_policy_worksheet_export/tests/test_policy_worksheet_export.py\", line 442, in test_paid_invoice_exports_client_collection_with_policy_and_commission_sources\n    collection.action_allocate()\n  File \"/home/odoo/src/user/aib_workflow_activity/models/insurance_collection.py\", line 13, in action_allocate\n    result = super().action_allocate()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_accounting/models/insurance_collection.py\", line 107, in action_allocate\n    collection._register_accounting_payments_for_new_lines()\n  File \"/home/odoo/src/user/aib_accounting/models/insurance_collection.py\", line 189, in _register_accounting_payments_for_new_lines\n    payment = collection._register_payment_for_line(line, journal)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/odoo/src/user/aib_accounting/models/insurance_collection.py\", line 217, in _register_payment_for_line\n    raise ValidationError(\nodoo.exceptions.ValidationError: Configure an outstanding receipts account on the selected inbound payment method before registering payment.\n "
+                                              }
+                                          ],
+                             "tests_started":  125
+                         },
+    "full-suite.log":  {
+                           "summary":  [
+                                           "2026-11-10 17:14:12,379 244 ERROR odolution-com-arab-insurance-19-10-26-40105896 odoo.tests.result: 2 failed, 5 error(s) of 230 tests when loading database \u0027odolution-com-arab-insurance-19-10-26-40105896\u0027 "
+                                       ],
+                           "failures":  [
+                                            {
+                                                "name":  "TestInsuranceMarketPlacement.test_market_insurer_display_name_uses_insurer_name",
+                                                "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_market/tests/test_insurance_market_placement.py\", line 158, in test_market_insurer_display_name_uses_insurer_name\n    self.assertIn(placement.display_name, insurer.display_name)\nAssertionError: \u0027MPL/2026/00086\u0027 not found in \u0027[TI1] Test Insurer 1 - Test Motor RFQ\u0027\n "
+                                            },
+                                            {
+                                                "name":  "TestInsuranceCommission.test_04b_policy_commission_becomes_receivable_without_paid_premium",
+                                                "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 113, in test_04b_policy_commission_becomes_receivable_without_paid_premium\n    commission.action_confirm_commission()\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 274, in action_confirm_commission\n    commission._ensure_state(\u0027draft\u0027)\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 367, in _ensure_state\n    raise ValidationError(f\u0027Commission must be in {expected_label} state.\u0027)\nodoo.exceptions.ValidationError: Commission must be in Draft state.\n "
+                                            },
+                                            {
+                                                "name":  "TestInsuranceCommission.test_05_workflow_partial_and_full_receipt",
+                                                "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 124, in test_05_workflow_partial_and_full_receipt\n    commission.action_confirm_commission()\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 274, in action_confirm_commission\n    commission._ensure_state(\u0027draft\u0027)\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 367, in _ensure_state\n    raise ValidationError(f\u0027Commission must be in {expected_label} state.\u0027)\nodoo.exceptions.ValidationError: Commission must be in Draft state.\n "
+                                            },
+                                            {
+                                                "name":  "TestInsuranceCommission.test_07_cannot_fully_receive_with_outstanding",
+                                                "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 158, in test_07_cannot_fully_receive_with_outstanding\n    commission.action_confirm_commission()\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 274, in action_confirm_commission\n    commission._ensure_state(\u0027draft\u0027)\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 367, in _ensure_state\n    raise ValidationError(f\u0027Commission must be in {expected_label} state.\u0027)\nodoo.exceptions.ValidationError: Commission must be in Draft state.\n "
+                                            },
+                                            {
+                                                "name":  "TestInsuranceCommission.test_08_activity_and_smart_buttons",
+                                                "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 168, in test_08_activity_and_smart_buttons\n    commission.action_confirm_commission()\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 274, in action_confirm_commission\n    commission._ensure_state(\u0027draft\u0027)\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 367, in _ensure_state\n    raise ValidationError(f\u0027Commission must be in {expected_label} state.\u0027)\nodoo.exceptions.ValidationError: Commission must be in Draft state.\n "
+                                            },
+                                            {
+                                                "name":  "TestInsuranceCommission.test_09_received_commission_snapshot_locked_for_sales",
+                                                "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 189, in test_09_received_commission_snapshot_locked_for_sales\n    commission.action_confirm_commission()\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 274, in action_confirm_commission\n    commission._ensure_state(\u0027draft\u0027)\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 367, in _ensure_state\n    raise ValidationError(f\u0027Commission must be in {expected_label} state.\u0027)\nodoo.exceptions.ValidationError: Commission must be in Draft state.\n "
+                                            },
+                                            {
+                                                "name":  "TestInsuranceCommission.test_11_commission_snapshots_insurer_quote_reference",
+                                                "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 217, in test_11_commission_snapshots_insurer_quote_reference\n    self.assertEqual(commission.insurer_quote_reference, \u0027INS-Q-COM-001\u0027)\nAssertionError: \u0027INS-Q-COM-BASE\u0027 != \u0027INS-Q-COM-001\u0027\n- INS-Q-COM-BASE\n?           ^^^^\n+ INS-Q-COM-001\n?           ^^^\n\n "
+                                            }
+                                        ],
+                           "tests_started":  230
+                       },
+    "final-suite.log":  {
+                            "summary":  [
+                                            "2026-11-10 17:17:11,615 282 ERROR odolution-com-arab-insurance-19-10-26-40105896 odoo.tests.result: 0 failed, 1 error(s) of 230 tests when loading database \u0027odolution-com-arab-insurance-19-10-26-40105896\u0027 "
+                                        ],
+                            "failures":  [
+                                             {
+                                                 "name":  "TestInsuranceCommission.test_05_workflow_partial_and_full_receipt",
+                                                 "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/aib_commission/tests/test_insurance_commission.py\", line 133, in test_05_workflow_partial_and_full_receipt\n    commission.action_register_partial_receipt()\n  File \"/home/odoo/src/user/aib_commission/models/insurance_commission.py\", line 291, in action_register_partial_receipt\n    raise ValidationError(\u0027Enter a new receipt amount before registering a receipt.\u0027)\nodoo.exceptions.ValidationError: Enter a new receipt amount before registering a receipt.\n "
+                                             }
+                                         ],
+                            "tests_started":  230
+                        },
+    "ui-and-final-regression.log":  {
+                                        "summary":  [
+
+                                                    ],
+                                        "failures":  [
+
+                                                     ],
+                                        "tests_started":  8
+                                    },
+    "final-targeted.log":  {
+                               "summary":  [
+                                               "2026-11-10 17:21:08,308 583 ERROR odolution-com-arab-insurance-19-10-26-40105896 odoo.tests.result: 1 failed, 0 error(s) of 20 tests when loading database \u0027odolution-com-arab-insurance-19-10-26-40105896\u0027 "
+                                           ],
+                               "failures":  [
+                                                {
+                                                    "name":  "TestSessionInfo.test_session_info_skips_archived_company",
+                                                    "details":  "Traceback (most recent call last):\n  File \"/home/odoo/src/user/muk_web_theme/tests/test_session_info.py\", line 31, in test_session_info_skips_archived_company\n    self.assertIn(company_a.id, allowed)\nAssertionError: 1 not found in {\u00271\u0027: {\u0027id\u0027: 1, \u0027name\u0027: \u0027Arab Insurance\u0027, \u0027sequence\u0027: 0, \u0027child_ids\u0027: [], \u0027parent_id\u0027: False, \u0027currency_id\u0027: 94, \u0027has_appsbar_image\u0027: True, \u0027has_background_image\u0027: True}}\n "
+                                                }
+                                            ],
+                               "tests_started":  20
+                           },
+    "session-final.log":  {
+                              "summary":  [
+                                              "2026-11-10 17:21:54,276 603 INFO odolution-com-arab-insurance-19-10-26-40105896 odoo.tests.result: 0 failed, 0 error(s) of 1 tests when loading database \u0027odolution-com-arab-insurance-19-10-26-40105896\u0027 "
+                                          ],
+                              "failures":  [
+
+                                           ],
+                              "tests_started":  1
+                          }
+}
